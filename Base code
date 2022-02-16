@@ -1,1 +1,9 @@
-#filter/underlying data
+library(dplyr)
+
+brewery = read.csv(file.choose(),header = TRUE)
+beer = read.csv(file.choose(),header = TRUE)
+
+#updating column names for join
+brewery=rename(brewery, Beer_ID=Brew_ID, Brewery=Name)
+
+beer_brewery = merge(x=brewery,y=beer,by="Beer_ID")
