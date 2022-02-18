@@ -1,9 +1,15 @@
 library(dplyr)
-
+library(tidyr)
+#reading in the csvs
 brewery = read.csv(file.choose(),header = TRUE)
 beer = read.csv(file.choose(),header = TRUE)
 
-#updating column names for join
-brewery=rename(brewery, Beer_ID=Brew_ID, Brewery=Name)
+#renaming columns for the join to the beer dataset
+brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
 
-beer_brewery = merge(x=brewery,y=beer,by="Beer_ID")
+#join between brewery and beer data
+beer_brewery = merge(x=brewery,y=beer,by="Brewery_id")
+
+#filtering of NAs for ABV and IBU
+beer_brewery=beer_brewery %>%   filter(if_any(c(ABV, IBU), ~ !is.na(.)))
+
