@@ -10,6 +10,7 @@ brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
 #join between brewery and beer data
 beer_brewery = merge(x=brewery,y=beer,by="Brewery_id")
 
-#filtering of NAs for ABV and IBU
-beer_brewery=beer_brewery %>%   filter(if_any(c(ABV, IBU), ~ !is.na(.)))
+#filtering of NAs for ABV and IBU-- rows drop from 2410 down to 1405 for this filtering
+#only use this filtered dataset for the questions related to ABV/IBU
+beer_brewery <- beer_brewery %>% filter_at(vars(ABV,IBU),all_vars(!is.na(.)))
 
