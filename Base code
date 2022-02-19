@@ -89,3 +89,12 @@ beer_brewery %>% select(ABV) %>%
             "75%"=quantile(ABV,.75),
             max=max(ABV),mean=mean(ABV))
 ```
+#bar graph of median alcohol content by State
+#Question 4
+bb<-beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(meanABV = mean(ABV), count = n()) %>% arrange(meanABV) %>% ggplot(aes(x = reorder(State, -meanABV), y = meanABV, fill=meanABV)) + geom_col()+ 
+  xlab('State') + ylab('Average ABV')+ggtitle("Average ABV by State") +
+  labs(fill="ABV")+ theme(axis.text = element_text(size = 6.3)) + scale_fill_gradient(low='#33D1FF',high='#358197', 
+                                                                                      name='ABV', 
+                                                                                      breaks = 0.04*0.065, labels = percent(0.04*0.065))
+bb + scale_y_continuous(labels = scales::percent)+ coord_flip()
+
