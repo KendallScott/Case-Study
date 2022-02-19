@@ -1,3 +1,5 @@
+```{r}
+#Question 2 & 3
 library(dplyr)
 library(tidyr)
 #reading in the csvs
@@ -13,10 +15,12 @@ beer_brewery = merge(x=brewery,y=beer,by="Brewery_id")
 #filtering of NAs for ABV and IBU-- rows drop from 2410 down to 1405 for this filtering
 #only use this filtered dataset for the questions related to ABV/IBU
 beer_brewery <- beer_brewery %>% filter_at(vars(ABV,IBU),all_vars(!is.na(.)))
+```
 
 
 ```{r}
 #question 1 (and possibly part of 9)
+#How many breweries are present in each state? (counties heatmap)
 #load libraries
 library(ggplot2)
 library(maps)
@@ -77,8 +81,19 @@ us_counties %>% left_join(brew_county,by="subregion") %>%
   ggtitle("Breweries by County\nContinental US")+
   geom_polygon(data = us_states,aes(x=long,y=lat,group=group), color = "white",size=.15,fill="transparent")
 ```
+
 ```{r}
-#6 comment on the summary statistics and distribution of the ABV variable
+#Question 4
+#Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
+#bar graph of median alcohol content by State
+bb<-beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(meanABV = mean(ABV), meanIBU=round(mean(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -meanABV), y = meanABV, fill=meanIBU)) + geom_col(width=1)+ 
+  xlab('State') + ylab('Average ABV')+ggtitle("Average IBU/ABV by State") +
+  labs(fill="ABV")+ theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#bee0ec',high='#1a6985', 
+                                                                                      name='Average IBU')
+bb + scale_y_continuous(labels = scales::percent)+ coord_flip()
+
+#Question 6
+#comment on the summary statistics and distribution of the ABV variable
 beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV))+geom_point()
 beer_brewery %>% ggplot(aes(x=ABV))+geom_density()
 
@@ -89,11 +104,32 @@ beer_brewery %>% select(ABV) %>%
             "75%"=quantile(ABV,.75),
             max=max(ABV),mean=mean(ABV))
 ```
-#bar graph of median alcohol content by State
-#Question 4
-bb<-beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(meanABV = mean(ABV), meanIBU=round(mean(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -meanABV), y = meanABV, fill=meanIBU)) + geom_col(width=1)+ 
-  xlab('State') + ylab('Average ABV')+ggtitle("Average IBU/ABV by State") +
-  labs(fill="ABV")+ theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#bee0ec',high='#1a6985', 
-                                                                                      name='Average IBU')
-bb + scale_y_continuous(labels = scales::percent)+ coord_flip()
+```{r}
+#Question 7
+#7.Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot. Make your best judgment of a relationship and EXPLAIN your answer.
+
+#comparison of ABV/IBU in scatter plot
+bb = beer_brewery %>% 
+  ggplot(aes(x = ABV, y=IBU, color = IBU, size=ABV)) + geom_point()+ ggtitle("International Bitterness Units vs. Alchohol by Volume")
+ggplotly(p)
+bb + scale_x_continuous(labels = scales::percent)
+
+#comparison of ABV/IBU with a geom_smooth, but this needs tweaking
+beer_brewery %>% ggplot(aes(x=ABV, y=IBU)) +
+  stat_summary(fun.data=mean_cl_normal) + 
+  geom_smooth(method='lm', formula= y~x)
+```
+```{r}
+
+#Question 8
+#Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA).  You decide to use KNN classification to investigate this relationship.  Provide statistical evidence one way or the other. You can of course assume your audience is comfortable with percentages … KNN is very easy to understand conceptually.
+```
+```{r}
+#Question 9
+#Knock their socks off!  Find one other useful inference from the data that you feel Budweiser may be able to find value in.  You must convince them why it is important and back up your conviction with appropriate statistical evidence. 
+```
+
+
+
+
 
