@@ -2760,7 +2760,7 @@ Monson,MA,Massachusetts,HAMPDEN,Monson
 North Amherst,MA,Massachusetts,HAMPSHIRE,Amherst
 North Amherst,MA,Massachusetts,HAMPSHIRE,North Amherst
 Northampton,MA,Massachusetts,HAMPSHIRE,North Hampton
-Northampton,MA,Massachusetts,HAMPSHIRE,Northampton
+Northamtpon,MA,Massachusetts,HAMPSHIRE,Northampton
 Florence,MA,Massachusetts,HAMPSHIRE,Florence
 Florence,MA,Massachusetts,HAMPSHIRE,Bay State Village
 Florence,MA,Massachusetts,HAMPSHIRE,Northampton
@@ -12342,8 +12342,8 @@ Ridgway,PA,Pennsylvania,ELK,Portland Mills
 Ridgway,PA,Pennsylvania,ELK,Ridgway
 Ridgway,PA,Pennsylvania,ELK,Portland Mls
 Rockton,PA,Pennsylvania,CLEARFIELD,Rockton
-Saint Marys,PA,Pennsylvania,ELK,Saint Marys
-Saint Marys,PA,Pennsylvania,ELK,St Marys
+Saint Mary's,PA,Pennsylvania,ELK,Saint Marys
+St Marys,PA,Pennsylvania,ELK,St Marys
 Sigel,PA,Pennsylvania,JEFFERSON,Sigel
 Sigel,PA,Pennsylvania,JEFFERSON,Hallton
 Sinnamahoning,PA,Pennsylvania,CAMERON,Sinnamahoning
@@ -15034,7 +15034,7 @@ Tunkhannock,PA,Pennsylvania,WYOMING,Mehoopany Township
 Wapwallopen,PA,Pennsylvania,LUZERNE,Wapwallopen
 White Haven,PA,Pennsylvania,LUZERNE,White Haven
 Dallas,PA,Pennsylvania,LUZERNE,Frontier Communicationa
-Wilkes Barre,PA,Pennsylvania,LUZERNE,Wilkes Barre
+Wilkes-Barre,PA,Pennsylvania,LUZERNE,Wilkes Barre
 Wilkes Barre,PA,Pennsylvania,LUZERNE,Wlks Barr Twp
 Wilkes Barre,PA,Pennsylvania,LUZERNE,Plains Township
 Wilkes Barre,PA,Pennsylvania,LUZERNE,Bear Creek Tw
@@ -15397,7 +15397,7 @@ Merion Station,PA,Pennsylvania,MONTGOMERY,Merion Park
 Merion Station,PA,Pennsylvania,MONTGOMERY,Merion Sta
 Merion Station,PA,Pennsylvania,MONTGOMERY,Merion Station
 Morrisville,PA,Pennsylvania,BUCKS,Lower Makefield
-Morrisville,PA,Pennsylvania,BUCKS,Yardley
+Yardley,PA,Pennsylvania,BUCKS,Yardley
 Morrisville,PA,Pennsylvania,BUCKS,Morrisville
 Morton,PA,Pennsylvania,DELAWARE,Morton
 Morton,PA,Pennsylvania,DELAWARE,Rutledge
@@ -17071,7 +17071,7 @@ Little Orleans,MD,Maryland,ALLEGANY,Little Orleans
 Maugansville,MD,Maryland,WASHINGTON,Maugansville
 Middletown,MD,Maryland,FREDERICK,Middletown
 Monrovia,MD,Maryland,FREDERICK,Monrovia
-Mount Airy,MD,Maryland,FREDERICK,Mount Airy
+Mt. Airy,MD,Maryland,FREDERICK,Mount Airy
 Myersville,MD,Maryland,FREDERICK,Myersville
 New Market,MD,Maryland,FREDERICK,New Market
 New Market,MD,Maryland,FREDERICK,Lake Linganore
@@ -20232,7 +20232,7 @@ Creedmoor,NC,North Carolina,GRANVILLE,Creedmoor
 Four Oaks,NC,North Carolina,JOHNSTON,Four Oaks
 Franklinton,NC,North Carolina,FRANKLIN,Franklinton
 Fuquay Varina,NC,North Carolina,WAKE,Fuquay Varina
-Fuquay Varina,NC,North Carolina,WAKE,Duncan
+Fuquay-Varina,NC,North Carolina,WAKE,Duncan
 Garner,NC,North Carolina,WAKE,Garner
 Goldsboro,NC,North Carolina,WAYNE,Webtown
 Goldsboro,NC,North Carolina,WAYNE,Patetown
@@ -21912,7 +21912,7 @@ Mc Clellanville,SC,South Carolina,CHARLESTON,Mcclellanville
 Mc Clellanville,SC,South Carolina,CHARLESTON,Mc Clellanville
 Moncks Corner,SC,South Carolina,BERKELEY,Moncks Corner
 Mount Pleasant,SC,South Carolina,CHARLESTON,Mount Pleasant
-Mount Pleasant,SC,South Carolina,CHARLESTON,Mt Pleasant
+Mt. Pleasant,SC,South Carolina,CHARLESTON,Mt Pleasant
 Pineville,SC,South Carolina,BERKELEY,Pineville
 Pinopolis,SC,South Carolina,BERKELEY,Pinopolis
 Ravenel,SC,South Carolina,CHARLESTON,Ravenel
@@ -24264,7 +24264,7 @@ Webster,FL,Florida,SUMTER,Ridge Manor Estates
 Webster,FL,Florida,SUMTER,Webster
 Wimauma,FL,Florida,HILLSBOROUGH,Wimauma
 Tampa,FL,Florida,HILLSBOROUGH,Tampa
-Tampa,FL,Florida,HILLSBOROUGH,Ybor City
+Tampa Bay,FL,Florida,HILLSBOROUGH,Ybor City
 Tampa,FL,Florida,HILLSBOROUGH,University Of Tampa
 Tampa,FL,Florida,HILLSBOROUGH,Univ Of Tampa
 Tampa,FL,Florida,HILLSBOROUGH,Macdill AFB
@@ -24292,7 +24292,7 @@ Tampa,FL,Florida,HILLSBOROUGH,Bank Of America
 Tampa,FL,Florida,HILLSBOROUGH,Time Inc
 Tampa,FL,Florida,HILLSBOROUGH,Time Customer Service Inc
 Saint Petersburg,FL,Florida,PINELLAS,Saint Petersburg
-Saint Petersburg,FL,Florida,PINELLAS,St Petersburg
+St Petersburg,FL,Florida,PINELLAS,St Petersburg
 Saint Petersburg,FL,Florida,PINELLAS,Saint Pete Beach
 Saint Petersburg,FL,Florida,PINELLAS,Pass A Grille
 Saint Petersburg,FL,Florida,PINELLAS,Treasure Is
@@ -30596,7 +30596,7 @@ Cleveland,OH,Ohio,CUYAHOGA,Warrensville Heights
 Cleveland,OH,Ohio,CUYAHOGA,Highland Hills
 Cleveland,OH,Ohio,CUYAHOGA,Parma
 Cleveland,OH,Ohio,CUYAHOGA,Middleburg Hts
-Cleveland,OH,Ohio,CUYAHOGA,Middleburg Heights
+Middleburg Heights,OH,Ohio,CUYAHOGA,Middleburg Heights
 Cleveland,OH,Ohio,CUYAHOGA,Middlebrg Hts
 Cleveland,OH,Ohio,CUYAHOGA,Parma Heights
 Independence,OH,Ohio,CUYAHOGA,Valley View
@@ -31038,7 +31038,7 @@ Bloomdale,OH,Ohio,WOOD,Bloomdale
 Bloomville,OH,Ohio,SENECA,Bloomville
 Bloomville,OH,Ohio,SENECA,Lykens
 Bucyrus,OH,Ohio,CRAWFORD,Bucyrus
-Bucyrus,OH,Ohio,CRAWFORD,New Winchester
+Bucryus,OH,Ohio,CRAWFORD,New Winchester
 Butler,OH,Ohio,RICHLAND,Butler
 Butler,OH,Ohio,RICHLAND,North Liberty
 Castalia,OH,Ohio,ERIE,Castalia
@@ -31374,7 +31374,7 @@ Cincinnati,OH,Ohio,HAMILTON,Kennedy Heights
 Cincinnati,OH,Ohio,HAMILTON,Pleasant Ridge
 Cincinnati,OH,Ohio,HAMILTON,Taft
 Cincinnati,OH,Ohio,HAMILTON,Fairmount
-Cincinnati,OH,Ohio,HAMILTON,Lockland
+Lockland,OH,Ohio,HAMILTON,Lockland
 Cincinnati,OH,Ohio,HAMILTON,Reading
 Cincinnati,OH,Ohio,HAMILTON,Woodlawn
 Cincinnati,OH,Ohio,HAMILTON,Lincoln Heights
@@ -34389,7 +34389,7 @@ Portland,MI,Michigan,IONIA,Portland
 Potterville,MI,Michigan,EATON,Potterville
 Riverdale,MI,Michigan,GRATIOT,Riverdale
 Rosebush,MI,Michigan,ISABELLA,Rosebush
-Saint Johns,MI,Michigan,CLINTON,Saint Johns
+St. John's,MI,Michigan,CLINTON,Saint Johns
 Saint Louis,MI,Michigan,GRATIOT,Saint Louis
 Saranac,MI,Michigan,IONIA,Saranac
 Shaftsburg,MI,Michigan,SHIAWASSEE,Shaftsburg
@@ -37170,7 +37170,7 @@ Little Suamico,WI,Wisconsin,OCONTO,Ltl Suamico
 Marinette,WI,Wisconsin,MARINETTE,Menekaunee
 Marinette,WI,Wisconsin,MARINETTE,Marinette
 Mountain,WI,Wisconsin,OCONTO,Mountain
-Neopit,WI,Wisconsin,MENOMINEE,Neopit
+Menominie,WI,Wisconsin,MENOMINEE,Neopit
 Niagara,WI,Wisconsin,MARINETTE,Niagara
 Nichols,WI,Wisconsin,OUTAGAMIE,Nichols
 Oconto,WI,Wisconsin,OCONTO,Oconto
@@ -38076,8 +38076,8 @@ Wyoming,MN,Minnesota,CHISAGO,Columbus
 Wyoming,MN,Minnesota,CHISAGO,East Bethel
 Wyoming,MN,Minnesota,CHISAGO,Wyoming
 Saint Paul,MN,Minnesota,RAMSEY,Saint Paul
-Saint Paul,MN,Minnesota,RAMSEY,Maplewood
-Saint Paul,MN,Minnesota,RAMSEY,West St Paul
+St Paul,MN,Minnesota,RAMSEY,Maplewood
+St. Paul,MN,Minnesota,RAMSEY,West St Paul
 Saint Paul,MN,Minnesota,RAMSEY,W St Paul
 Saint Paul,MN,Minnesota,RAMSEY,W Saint Paul
 Saint Paul,MN,Minnesota,RAMSEY,West Saint Paul
@@ -38085,7 +38085,7 @@ Saint Paul,MN,Minnesota,RAMSEY,Lauderdale
 Saint Paul,MN,Minnesota,RAMSEY,Falcon Hgts
 Saint Paul,MN,Minnesota,RAMSEY,Falcon Heights
 Saint Paul,MN,Minnesota,RAMSEY,N Saint Paul
-Saint Paul,MN,Minnesota,RAMSEY,Vadnais Heights
+Vadnais Heights,MN,Minnesota,RAMSEY,Vadnais Heights
 Saint Paul,MN,Minnesota,RAMSEY,North St Paul
 Saint Paul,MN,Minnesota,RAMSEY,North Saint Paul
 Saint Paul,MN,Minnesota,RAMSEY,Little Canada
@@ -38334,7 +38334,7 @@ Minneapolis,MN,Minnesota,HENNEPIN,Richfield
 Minneapolis,MN,Minnesota,HENNEPIN,New Hope
 Minneapolis,MN,Minnesota,HENNEPIN,Brooklyn Ctr
 Minneapolis,MN,Minnesota,HENNEPIN,Brooklyn Park
-Minneapolis,MN,Minnesota,HENNEPIN,Brooklyn Center
+Brooklyn Center,MN,Minnesota,HENNEPIN,Brooklyn Center
 Minneapolis,MN,Minnesota,HENNEPIN,Brooklyn Pk
 Minneapolis,MN,Minnesota,ANOKA,Spring Lake Park
 Minneapolis,MN,Minnesota,ANOKA,Spring Lk Pk
@@ -41461,7 +41461,7 @@ Barrington,IL,Illinois,LAKE,Fox Rv Vly Gn
 Barrington,IL,Illinois,LAKE,N Barrington
 Barrington,IL,Illinois,LAKE,Deer Park
 Barrington,IL,Illinois,LAKE,Fox River Valley Gardens
-Barrington,IL,Illinois,LAKE,Lake Barrington
+Lake Barrington,IL,Illinois,LAKE,Lake Barrington
 Barrington,IL,Illinois,LAKE,Barrington Hills
 Barrington,IL,Illinois,LAKE,Inverness
 Barrington,IL,Illinois,LAKE,Lake Barrington Shores
@@ -44466,7 +44466,7 @@ New Florence,MO,Missouri,MONTGOMERY,Big Springs
 New Florence,MO,Missouri,MONTGOMERY,Prices Branch
 New Florence,MO,Missouri,MONTGOMERY,New Florence
 New Melle,MO,Missouri,SAINT CHARLES,New Melle
-O Fallon,MO,Missouri,SAINT CHARLES,Dardenne Prairie
+O'Fallon,MO,Missouri,SAINT CHARLES,Dardenne Prairie
 O Fallon,MO,Missouri,SAINT CHARLES,Saint Paul
 O Fallon,MO,Missouri,SAINT CHARLES,Cottleville
 O Fallon,MO,Missouri,SAINT CHARLES,Saint Peters
@@ -50186,7 +50186,7 @@ Wheatland,OK,Oklahoma,OKLAHOMA,Wheatland
 Wynnewood,OK,Oklahoma,GARVIN,Wynnewood
 OKC,OK,Oklahoma,OKLAHOMA,Okc
 Oklahoma City,OK,Oklahoma,OKLAHOMA,Oklahoma City
-Oklahoma City,OK,Oklahoma,OKLAHOMA,Midwest City
+Midwest City,OK,Oklahoma,OKLAHOMA,Midwest City
 Oklahoma City,OK,Oklahoma,OKLAHOMA,Warr Acres
 Oklahoma City,OK,Oklahoma,OKLAHOMA,Del City
 Oklahoma City,OK,Oklahoma,OKLAHOMA,Smith Village
@@ -50207,7 +50207,7 @@ Oklahoma City,OK,Oklahoma,OKLAHOMA,Jp Morgan Chase
 Oklahoma City,OK,Oklahoma,OKLAHOMA,Okla Univ Health Sci Ctr
 Oklahoma City,OK,Oklahoma,OKLAHOMA,Ok Tax Comm
 Oklahoma City,OK,Oklahoma,OKLAHOMA,Bank Of Oklahoma
-Austin,TX,Texas,TRAVIS,Internal Revenue Service
+South Austin,TX,Texas,TRAVIS,Internal Revenue Service
 Austin,TX,Texas,TRAVIS,Austin
 Ardmore,OK,Oklahoma,CARTER,Milo
 Ardmore,OK,Oklahoma,CARTER,Pooleville
@@ -51013,7 +51013,7 @@ Caddo Mills,TX,Texas,HUNT,Caddo Mills
 Grand Saline,TX,Texas,VAN ZANDT,Grand Saline
 Hutchins,TX,Texas,DALLAS,Hutchins
 Kaufman,TX,Texas,KAUFMAN,Kaufman
-Kemp,TX,Texas,KAUFMAN,Seven Points
+Seven Points,TX,Texas,KAUFMAN,Seven Points
 Kemp,TX,Texas,KAUFMAN,Tool
 Kemp,TX,Texas,KAUFMAN,Kemp
 Kerens,TX,Texas,NAVARRO,Kerens
@@ -51059,7 +51059,7 @@ Dallas,TX,Texas,DALLAS,Village
 Dallas,TX,Texas,DALLAS,University Park
 Dallas,TX,Texas,DALLAS,Cockrell Hill
 Dallas,TX,Texas,DALLAS,Farmers Brnch
-Dallas,TX,Texas,DALLAS,Farmers Branch
+Farmers Branch,TX,Texas,DALLAS,Farmers Branch
 Dallas,TX,Texas,DALLAS,North Branch
 Dallas,TX,Texas,COLLIN,Prestonwood
 Dallas,TX,Texas,COLLIN,Dallas
@@ -60947,7 +60947,7 @@ Kailua,HI,Hawaii,HONOLULU,Kailua
 Ocean View,HI,Hawaii,HAWAII,Ocean View
 Waikoloa,HI,Hawaii,HAWAII,Waikoloa
 Keauhou,HI,Hawaii,HAWAII,Keauhou
-Keauhou,HI,Hawaii,HAWAII,Kailua Kona
+Kona,HI,Hawaii,HAWAII,Kailua Kona
 Kailua Kona,HI,Hawaii,HAWAII,Kailua Kona
 Kalaheo,HI,Hawaii,KAUAI,Kalaheo
 Kalaupapa,HI,Hawaii,MAUI,Kalaupapa
