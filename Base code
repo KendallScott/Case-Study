@@ -91,11 +91,9 @@ beer_brewery %>% select(ABV) %>%
 ```
 #bar graph of median alcohol content by State
 #Question 4
-#gonna ask Nick how to adjust the font size on the labels for this, as it is too big-- and got a bit stumped on finding it
 bb<-beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(meanABV = mean(ABV), meanIBU=round(mean(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -meanABV), y = meanABV, fill=meanIBU)) + geom_col(width=1)+ 
   xlab('State') + ylab('Average ABV')+ggtitle("Average IBU/ABV by State") +
-  geom_text(aes(label=meanIBU))+
-  labs(fill="ABV")+ theme(axis.text = element_text(size = 6.1))+ scale_fill_gradient(low='#bee0ec',high='#1a6985', 
+  labs(fill="ABV")+ theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#bee0ec',high='#1a6985', 
                                                                                       name='Average IBU')
 bb + scale_y_continuous(labels = scales::percent)+ coord_flip()
 
