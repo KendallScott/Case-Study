@@ -17,6 +17,11 @@ beer_brewery <- beer_brewery %>% filter_at(vars(ABV,IBU),all_vars(!is.na(.)))
 
 ```{r}
 #question 1 (and possibly part of 9)
+#load libraries
+library(ggplot2)
+library(maps)
+library(tidyverse)
+library(ggthemes)
 #load counties table
 cnty <- read.csv("cty-cnty.csv")
 colnames(cnty)[3] <- "region"
