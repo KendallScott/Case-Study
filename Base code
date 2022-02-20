@@ -13,6 +13,21 @@ tail(beer_brewery)
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
 
+#pulling ids with inaccurate info
+Brewery_id<-as.integer(c(96,415,167, 262, 139))
+error_brew_ids<-as.data.frame(Brewery_id)
+#joining to get Brewery Names
+brew_filter = merge(x=error_brew_ids,y=brewery,by="Brewery_id") %>% select(Brewery_id, Brewery)
+
+#joining on brewery name to pull in correct columns--filter out inaccurate
+brew_filter = merge(x=brewery,y=brew_filter,by="Brewery") %>% mutate(type = case_when( Brewery_id.x==Brewery_id.y ~ "correct",TRUE~  "wrong"))
+#filtering down to rows with errors
+brew_replace =brew_filter %>%filter(type == "wrong") %>% select(Brewery_id.y, Brewery, City, State)%>% rename(Brewery_id=Brewery_id.y)
+
+#removing errors and replacing with updated df
+brewery = anti_join(x=brewery,y=error_brew_ids,by="Brewery_id")
+brewery<-rbind(brewery, brew_replace)
+
 #join between brewery and beer data
 beer_brewery = merge(x=brewery,y=beer,by="Brewery_id")
 
