@@ -5,10 +5,6 @@ library(tidyr)
 #reading in the csvs
 brewery = read.csv(file.choose(),header = TRUE)
 beer = read.csv(file.choose(),header = TRUE)
-#print first 6 rows
-head(beer_brewery)
-#print last 6 rows
-tail(beer_brewery)
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
@@ -31,6 +27,11 @@ brewery$City = str_replace(brewery$City, "Menominie", "Menomonie")
 
 #join between brewery and beer data
 beer_brewery = merge(x=brewery,y=beer,by="Brewery_id")
+
+#print first 6 rows
+head(beer_brewery)
+#print last 6 rows
+tail(beer_brewery)
 
 #filtering of NAs for ABV and IBU-- rows drop from 2410 down to 1405 for this filtering
 #only use this filtered dataset for the questions related to ABV/IBU
