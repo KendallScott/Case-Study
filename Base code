@@ -164,6 +164,17 @@ bb + scale_x_continuous(labels = scales::percent)
 ```{r}
 #Question 9
 #Knock their socks off!  Find one other useful inference from the data that you feel Budweiser may be able to find value in.  You must convince them why it is important and back up your conviction with appropriate statistical evidence. 
+#looking at binge drinking prevalence by state vs. ABV by state
+cdc_beer_brewery = merge(x=clean_beer_brewery,y=CDC,by="State")
+cdc_beer_brewery%>% rename(CDC.BNG=Binge.drinking.prevalence)
+
+bb<-cdc_beer_brewery %>% group_by(State) %>% summarize(medianABV = median(ABV), BingeDrink=round(median(Binge.drinking.prevalence),0), count = n()) 
+
+bb.lm <- lm(medianABV~ BingeDrink, bb)
+
+bb = cdc_beer_brewery %>% ggplot(aes(x = ABV, y=Binge.drinking.prevalence, color = Binge.drinking.prevalence)) + geom_point(aes(fill=Binge.drinking.prevalence, color=IBU),pch=21,size=3,colour="black")+ ggtitle("ABV vs. Binge Drinking Prevalence")+ 
+  geom_smooth(method='lm', formula= y~x, color="black")
+bb + scale_x_continuous(labels = scales::percent)
 ```
 
 
