@@ -106,10 +106,21 @@ us_counties %>% left_join(brew_county,by="subregion") %>%
 ```{r}
 #Question 4
 #Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
-#bar graph of median alcohol content by State
-bb<-clean_beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(medianABV = median(ABV), medianIBU=round(median(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -medianABV), y = medianABV, fill=medianIBU)) + geom_col(width=1)+ 
+
+#ABV
+bb<-clean_beer_brewery %>% group_by(State) %>% summarize(medianABV = median(ABV), count = n()) %>% ggplot(aes(x = reorder(State, -medianABV), y = medianABV, fill=medianABV)) + geom_col()+ 
+  xlab('State') + ylab('Median ABV')+ggtitle("Median ABV by State") +theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#46085C', high='#4FBA6E', name='Median ABV')
+bb + scale_y_continuous(labels = scales::percent)
+
+#IBU
+bb<-clean_beer_brewery %>% group_by(State) %>% summarize(medianABV = median(ABV), medianIBU=round(median(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -medianABV), y = medianIBU, fill=medianIBU)) + geom_col()+ 
+  xlab('State') + ylab('Median IBU')+ggtitle("Median IBU by State") +theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#46085C', high='#4FBA6E', name='Median IBU')
+bb 
+
+#combined
+bb<-clean_beer_brewery %>% group_by(State) %>% summarize(medianABV = median(ABV), medianIBU=round(median(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -medianABV), y = medianABV, fill=medianIBU)) + geom_col()+ 
   xlab('State') + ylab('Median ABV')+ggtitle("Median IBU/ABV by State") +theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#46085C', high='#4FBA6E', name='Median IBU')
-bb + scale_y_continuous(labels = scales::percent)+ coord_flip()
+bb + scale_y_continuous(labels = scales::percent)
 ```
 
 ```{r}
@@ -139,12 +150,12 @@ clean_beer_brewery %>% select(ABV) %>%
 #7.Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot. Make your best judgment of a relationship and EXPLAIN your answer.
 
 #comparison of ABV/IBU in scatter plot with regression line
-bb.lm <- lm(ABV~ IBU, clean_beer_brewery)
-bb = clean_beer_brewery %>% ggplot(aes(x = ABV, y=IBU, color = IBU)) + geom_point()+ ggtitle("International Bitterness Units vs. Alchohol by Volume")+ 
-  geom_smooth(method='lm', formula= y~x)
-bb
+bb = clean_beer_brewery %>% ggplot(aes(x = ABV, y=IBU, color = IBU)) + geom_point(aes(fill=IBU, color=IBU),pch=21,size=3,colour="black")+ ggtitle("International Bitterness Units vs. Alchohol by Volume")+ 
+  geom_smooth(method='lm', formula= y~x, color="black")
+bb + scale_x_continuous(labels = scales::percent)
 
 ```
+
 ```{r}
 
 #Question 8
