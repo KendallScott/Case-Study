@@ -95,7 +95,18 @@ bb<-beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(meanA
   labs(fill="ABV")+ theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#bee0ec',high='#1a6985', 
                                                                                       name='Average IBU')
 bb + scale_y_continuous(labels = scales::percent)+ coord_flip()
+```
 
+```{r}
+#5 which state has the maximum alcoholic (ABV) beer? which state has the most bitter (IBU) beer?
+beer_brewery %>% merge(select(cnty, c("City", "State", "County","region")), by=c("City","State")) %>% 
+  group_by(region) %>% summarise(max_ABV=max(ABV)) %>% arrange(desc(max_ABV))
+
+beer_brewery %>% merge(select(cnty, c("City", "State", "County","region")), by=c("City","State")) %>% 
+  group_by(region) %>% summarise(Most_Bitter=max(IBU)) %>% arrange(desc(Most_Bitter))
+```
+
+```{r}
 #Question 6
 #comment on the summary statistics and distribution of the ABV variable
 beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV))+geom_point()
