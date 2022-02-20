@@ -115,9 +115,12 @@ ggplotly(p)
 bb + scale_x_continuous(labels = scales::percent)
 
 #comparison of ABV/IBU with a geom_smooth, but this needs tweaking
-beer_brewery %>% ggplot(aes(x=ABV, y=IBU)) +
+bb.lm <- lm(ABV~ IBU, beer_brewery)
+
+bb = beer_brewery %>% ggplot(aes(x=ABV, y=IBU)) +
   stat_summary(fun.data=mean_cl_normal) + 
   geom_smooth(method='lm', formula= y~x)
+bb
 ```
 ```{r}
 
