@@ -35,7 +35,7 @@ tail(beer_brewery)
 
 #filtering of NAs for ABV and IBU-- rows drop from 2410 down to 1405 for this filtering
 #only use this filtered dataset for the questions related to ABV/IBU
-beer_brewery <- beer_brewery %>% filter_at(vars(ABV,IBU),all_vars(!is.na(.)))
+clean_beer_brewery <- beer_brewery %>% filter_at(vars(ABV,IBU),all_vars(!is.na(.)))
 ```
 
 
@@ -59,7 +59,7 @@ cnty <- cnty[!duplicated(cnty),]
 
 #left join brew and cnty
 brewcomb <- merge(brewery, select(cnty, c("City", "State", "County","region")), by=c("City","State"))
-brewcomb <- brewcomb %>% distinct(Brew_ID, .keep_all = TRUE)#missing change from MA to MI
+brewcomb <- brewcomb %>% distinct(Brewery_id, .keep_all = TRUE)
 
 #1 table wtih state count, map with state count and map with county count
 #state and county tables
@@ -107,10 +107,8 @@ us_counties %>% left_join(brew_county,by="subregion") %>%
 #Question 4
 #Compute the median alcohol content and international bitterness unit for each state. Plot a bar chart to compare.
 #bar graph of median alcohol content by State
-bb<-beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(meanABV = mean(ABV), meanIBU=round(mean(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -meanABV), y = meanABV, fill=meanIBU)) + geom_col(width=1)+ 
-  xlab('State') + ylab('Average ABV')+ggtitle("Average IBU/ABV by State") +
-  labs(fill="ABV")+ theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#bee0ec',high='#1a6985', 
-                                                                                      name='Average IBU')
+bb<-clean_beer_brewery %>% filter(!is.na(ABV)) %>% group_by(State) %>% summarize(medianABV = median(ABV), medianIBU=round(median(IBU),0), count = n()) %>% ggplot(aes(x = reorder(State, -medianABV), y = medianABV, fill=medianIBU)) + geom_col(width=1)+ 
+  xlab('State') + ylab('Median ABV')+ggtitle("Median IBU/ABV by State") +theme(axis.text = element_text(size = 6))+ scale_fill_gradient(low='#46085C', high='#4FBA6E', name='Median IBU')
 bb + scale_y_continuous(labels = scales::percent)+ coord_flip()
 ```
 
@@ -126,10 +124,10 @@ beer_brewery %>% merge(select(cnty, c("City", "State", "County","region")), by=c
 ```{r}
 #Question 6
 #comment on the summary statistics and distribution of the ABV variable
-beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV))+geom_point()
-beer_brewery %>% ggplot(aes(x=ABV))+geom_density()
+clean_beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV))+geom_point()
+clean_beer_brewery %>% ggplot(aes(x=ABV))+geom_density()
 
-beer_brewery %>% select(ABV) %>%
+clean_beer_brewery %>% select(ABV) %>%
   summarise(min=min(ABV),
             "25%"=quantile(ABV,.25),
             median=median(ABV),
@@ -140,19 +138,12 @@ beer_brewery %>% select(ABV) %>%
 #Question 7
 #7.Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot. Make your best judgment of a relationship and EXPLAIN your answer.
 
-#comparison of ABV/IBU in scatter plot
-bb = beer_brewery %>% 
-  ggplot(aes(x = ABV, y=IBU, color = IBU, size=ABV)) + geom_point()+ ggtitle("International Bitterness Units vs. Alchohol by Volume")
-ggplotly(p)
-bb + scale_x_continuous(labels = scales::percent)
-
-#comparison of ABV/IBU with a geom_smooth, but this needs tweaking
-bb.lm <- lm(ABV~ IBU, beer_brewery)
-
-bb = beer_brewery %>% ggplot(aes(x=ABV, y=IBU)) +
-  stat_summary(fun.data=mean_cl_normal) + 
+#comparison of ABV/IBU in scatter plot with regression line
+bb.lm <- lm(ABV~ IBU, clean_beer_brewery)
+bb = clean_beer_brewery %>% ggplot(aes(x = ABV, y=IBU, color = IBU)) + geom_point()+ ggtitle("International Bitterness Units vs. Alchohol by Volume")+ 
   geom_smooth(method='lm', formula= y~x)
 bb
+
 ```
 ```{r}
 
