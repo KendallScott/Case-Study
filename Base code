@@ -175,6 +175,26 @@ bb.lm <- lm(medianABV~ BingeDrink, bb)
 bb = cdc_beer_brewery %>% ggplot(aes(x = ABV, y=Binge.drinking.prevalence, color = Binge.drinking.prevalence)) + geom_point(aes(fill=Binge.drinking.prevalence, color=IBU),pch=21,size=3,colour="black")+ ggtitle("ABV vs. Binge Drinking Prevalence")+ 
   geom_smooth(method='lm', formula= y~x, color="black")
 bb + scale_x_continuous(labels = scales::percent)
+
+#pulling tweets by location that mention budweiser
+library(rtweet)
+
+twitter_token <- create_token(
+  app = appname,
+  consumer_key = key,
+  consumer_secret = secret,
+  access_token = access_token,
+  access_secret = access_secret,
+  set_renv = TRUE)
+  
+budweiser_tweets <- search_tweets(q="budweiser",  n = 18000,
+                                  include_rts = FALSE, lang = "en", 
+                                  geocode = lookup_coords("usa")
+loc=budweiser_tweets %>% filter(is.na(location) == FALSE & location != "" & location != "USA" & location != "United States"& location != "Canada") 
+loc <- loc %>%
+  group_by(location) %>% count(location)
+loc %>% arrange(desc(n))
+)
 ```
 
 
