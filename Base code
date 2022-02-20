@@ -5,6 +5,10 @@ library(tidyr)
 #reading in the csvs
 brewery = read.csv(file.choose(),header = TRUE)
 beer = read.csv(file.choose(),header = TRUE)
+#print first 6 rows
+head(beer_brewery)
+#print last 6 rows
+tail(beer_brewery)
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
