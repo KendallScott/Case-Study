@@ -27,6 +27,7 @@ brew_replace =brew_filter %>%filter(type == "wrong") %>% select(Brewery_id.y, Br
 #removing errors and replacing with updated df
 brewery = anti_join(x=brewery,y=error_brew_ids,by="Brewery_id")
 brewery<-rbind(brewery, brew_replace)
+brewery$City = str_replace(brewery$City, "Menominie", "Menomonie")
 
 #join between brewery and beer data
 beer_brewery = merge(x=brewery,y=beer,by="Brewery_id")
