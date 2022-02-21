@@ -125,25 +125,69 @@ bb + scale_y_continuous(labels = scales::percent)
 
 ```{r}
 #5 which state has the maximum alcoholic (ABV) beer? which state has the most bitter (IBU) beer?
-beer_brewery %>% merge(select(cnty, c("City", "State", "County","region")), by=c("City","State")) %>% 
-  group_by(region) %>% summarise(max_ABV=max(ABV)) %>% arrange(desc(max_ABV))
+maxABV <- beer_brewery %>% merge(cnty, by=c("City", "State")) %>% select(ABV, region) %>% 
+  filter(!is.na(ABV)) %>% group_by(region) %>% summarise(Max_ABV=max(ABV)) %>% arrange(desc(Max_ABV))
+maxABV %>% kable(col.names = c("State", "Max ABV")) %>% 
+  kable_styling(latex_options = c("striped", "scale_down")) %>% 
+  row_spec(row = 0, italic = T, background = "#21918c", color = "white") %>% 
+  column_spec(1:2, width = "0.5in")
 
-beer_brewery %>% merge(select(cnty, c("City", "State", "County","region")), by=c("City","State")) %>% 
-  group_by(region) %>% summarise(Most_Bitter=max(IBU)) %>% arrange(desc(Most_Bitter))
+maxIBU <- beer_brewery %>% merge(cnty, by=c("City", "State")) %>% select(IBU, region) %>% 
+  filter(!is.na(IBU)) %>% group_by(region) %>% summarise(Max_IBU=max(IBU)) %>% arrange(desc(Max_IBU))
+maxIBU %>% kable(col.names = c("State","Max IBU")) %>% 
+  kable_styling(latex_options = c("striped", "scale_down")) %>% 
+  row_spec(row = 0, italic = T, background = "#21918c", color = "white") %>% 
+  column_spec(1:2, width = "0.5in")
+
+us_states %>% mutate(region=str_to_title(region)) %>% left_join(maxABV,by="region") %>% 
+  ggplot(aes(x=long,y=lat,group=group, fill = Max_ABV))+
+  geom_polygon(color = "gray90", size=.1)+
+  coord_map(projection = "albers", lat0=45, lat1=55)+
+  scale_fill_viridis_c()+
+  theme(axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_blank(),
+        axis.title = element_blank())+
+  labs(fill="Maximum\nAlcohol by Volume")+
+  ggtitle("Maximum ABV by State\nContinental US")
+
+us_states %>% mutate(region=str_to_title(region)) %>% left_join(maxIBU,by="region") %>% 
+  ggplot(aes(x=long,y=lat,group=group, fill = Max_IBU))+
+  geom_polygon(color = "gray90", size=.1)+
+  coord_map(projection = "albers", lat0=45, lat1=55)+
+  scale_fill_viridis_c()+
+  theme(axis.line = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_blank(),
+        axis.title = element_blank())+
+  labs(fill="Maximum\nIBU")+
+  ggtitle("Maximum IBU by State\nContinental US")
+
 ```
 
 ```{r}
 #Question 6
-#comment on the summary statistics and distribution of the ABV variable
-clean_beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV))+geom_point()
-clean_beer_brewery %>% ggplot(aes(x=ABV))+geom_density()
-
-clean_beer_brewery %>% select(ABV) %>%
+#6 comment on the summary statistics and distribution of the ABV variable
+beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV))+geom_point()
+beer_brewery %>% ggplot(aes(x=ABV))+geom_density()
+beer_brewery %>% ggplot(aes(x=ABV))+geom_boxplot()
+ABVsum <- beer_brewery %>% filter(!is.na(ABV)) %>% 
+  select(ABV) %>%
   summarise(min=min(ABV),
             "25%"=quantile(ABV,.25),
             median=median(ABV),
             "75%"=quantile(ABV,.75),
             max=max(ABV),mean=mean(ABV))
+ABVsum %>% kable(col.names = c("Min", "25%", "Med", "75%", "Max", "Mean")) %>% 
+  kable_styling(latex_options = c("striped", "scale_down")) %>% 
+  row_spec(row = 0, italic = T, background = "#21918c", color = "white") %>% 
+  column_spec(1:2, width = "0.5in")
+
+#right skewed distribution centered at .057, there seems to be some degree of rounding occuring at around .1, 
+#given that there are several beers that are exactly at the line with fewer slightly below and almost none 
+#slightly above the number. There also seems to be some degree of rounding at .5, but this is less pronounced
 ```
 ```{r}
 #Question 7
