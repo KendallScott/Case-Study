@@ -195,6 +195,11 @@ loc <- loc %>%
   group_by(location) %>% count(location)
 loc %>% arrange(desc(n))
 )
+
+#recently popular tweets from budweiser
+budweiserusa <- get_timeline("budweiserusa", n = 3200)
+top_retweets <- budweiserusa %>% select(text, retweet_count, favorite_count) %>% filter(is.na(retweet_count) == FALSE & retweet_count!="")  %>% arrange(desc(retweet_count)) %>% top_n(10)
+
 ```
 
 
