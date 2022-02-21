@@ -9,6 +9,7 @@ beer = read.csv(file.choose(),header = TRUE)
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
+brewery$State <- trimws(brewery$State, which = c("left"))#added to remove space before state
 
 #pulling ids with inaccurate info
 Brewery_id<-as.integer(c(96,415,167, 262, 139))
@@ -48,12 +49,13 @@ library(ggplot2)
 library(maps)
 #library(tidyverse)#added to 1st chunk
 library(ggthemes)
+library(kableextra)
 #load counties table
 cnty <- read.csv("cty-cnty.csv")
 colnames(cnty)[3] <- "region"
 
 #data wrangle
-brewery$State <- trimws(brewery$State, which = c("left"))
+#brewery$State <- trimws(brewery$State, which = c("left"))
 cnty <- cnty %>% select("City", "State","County","region")#select columns
 cnty <- cnty[!duplicated(cnty),]
 
@@ -171,8 +173,14 @@ us_states %>% mutate(region=str_to_title(region)) %>% left_join(maxIBU,by="regio
 ```{r}
 #Question 6
 #6 comment on the summary statistics and distribution of the ABV variable
-beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV))+geom_point()
-beer_brewery %>% ggplot(aes(x=ABV))+geom_density()
+beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV, color=as.factor(Ounces)))+geom_point()+scale_color_viridis_d()+theme_bw()+labs(color="Ounces")+
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.border = element_blank())
+beer_brewery %>% ggplot(aes(x=ABV))+geom_density(color="#39568C")+theme_bw()+theme(
+  panel.grid = element_blank(),
+  panel.border = element_blank())
 beer_brewery %>% ggplot(aes(x=ABV))+geom_boxplot()
 ABVsum <- beer_brewery %>% filter(!is.na(ABV)) %>% 
   select(ABV) %>%
