@@ -2,6 +2,7 @@
 #Question 2 & 3
 library(dplyr)
 library(tidyr)
+library(tidyverse)
 #reading in the csvs
 brewery = read.csv(file.choose(),header = TRUE)
 beer = read.csv(file.choose(),header = TRUE)
@@ -45,7 +46,7 @@ clean_beer_brewery <- beer_brewery %>% filter_at(vars(ABV,IBU),all_vars(!is.na(.
 #load libraries
 library(ggplot2)
 library(maps)
-library(tidyverse)
+#library(tidyverse)#added to 1st chunk
 library(ggthemes)
 #load counties table
 cnty <- read.csv("cty-cnty.csv")
