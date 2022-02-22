@@ -49,10 +49,16 @@ library(ggplot2)
 library(maps)
 #library(tidyverse)#added to 1st chunk
 library(ggthemes)
-library(kableextra)
+library(kableExtra)
 #load counties table
 cnty <- read.csv("cty-cnty.csv")
 colnames(cnty)[3] <- "region"
+#load population data 2021
+pop_est <- read.csv("NST-EST2021-alldata.csv")
+pop_est <- pop_est %>% select(NAME,POPESTIMATE2021) %>% rename(region=NAME, "Pop2021"=POPESTIMATE2021) %>% mutate(region=tolower(region))
+pop_est <- pop_est[-c(1:5),]
+pop_est$region %>% str_replace("District of Columbia", "washington, d.c.")
+pop_est$rank <- rank(-pop_est$Pop2021)
 
 #data wrangle
 #brewery$State <- trimws(brewery$State, which = c("left"))
@@ -72,7 +78,11 @@ us_counties <- map_data("county")
 #state brewery count
 brew_state <- brewcomb %>% mutate(region=tolower(region)) %>%
   group_by(region) %>% count(region)
-brew_state %>% arrange(desc(n))
+brew_state <- brew_state %>% left_join(pop_est,by="region") %>% arrange(desc(n))
+brew_state %>% mutate(region=str_to_title(region),Pop2021=round(Pop2021/1000000,2)) %>% kable(col.names = c("State","Breweries","Population 2021","Pop. Rank")) %>% 
+  kable_styling(latex_options = c("striped", "scale_down")) %>% 
+  row_spec(row = 0, italic = T, background = "#21918c", color = "white") %>% 
+  column_spec(1:2, width = "0.5in")
 #state gradient map
 us_states %>% left_join(brew_state,by=("region")) %>% 
   ggplot(aes(x=long,y=lat,group=group,fill=n))+
