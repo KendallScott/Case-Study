@@ -1,4 +1,4 @@
-﻿City,State,State full,County,City alias
+City,State,State full,County,City alias
 Holtsville,NY,New York,SUFFOLK,Internal Revenue Service
 Holtsville,NY,New York,SUFFOLK,Holtsville
 Adjuntas,PR,Puerto Rico,ADJUNTAS,URB San Joaquin
@@ -4548,7 +4548,7 @@ Mexico,ME,Maine,OXFORD,Mexico
 Minot,ME,Maine,ANDROSCOGGIN,Minot
 Monmouth,ME,Maine,KENNEBEC,Monmouth
 New Gloucester,ME,Maine,CUMBERLAND,New Gloucestr
-New Gloucester,ME,Maine,CUMBERLAND,New Gloucester
+Pineland,ME,Maine,CUMBERLAND,New Gloucester
 Newry,ME,Maine,OXFORD,Newry
 Newry,ME,Maine,OXFORD,Upton
 North Jay,ME,Maine,FRANKLIN,North Jay
@@ -15913,7 +15913,7 @@ Wilmington,DE,Delaware,NEW CASTLE,Talleyville
 Wilmington,DE,Delaware,NEW CASTLE,Newport
 Wilmington,DE,Delaware,NEW CASTLE,Stanton
 Wilmington,DE,Delaware,NEW CASTLE,Elsmere
-Wilmington,DE,Delaware,NEW CASTLE,Greenville
+Greenville,DE,Delaware,NEW CASTLE,Greenville
 Wilmington,DE,Delaware,NEW CASTLE,Marshallton
 Wilmington,DE,Delaware,NEW CASTLE,Bellefonte
 Wilmington,DE,Delaware,NEW CASTLE,Arden
@@ -36693,7 +36693,7 @@ Lomira,WI,Wisconsin,DODGE,Lomira
 Malone,WI,Wisconsin,FOND DU LAC,Malone
 Mayville,WI,Wisconsin,DODGE,Mayville
 Menomonee Falls,WI,Wisconsin,WAUKESHA,Menomonee Fls
-Menomonee Falls,WI,Wisconsin,WAUKESHA,Menomonee Falls
+Menominee,WI,Wisconsin,WAUKESHA,Menomonee Falls
 Merton,WI,Wisconsin,WAUKESHA,Merton
 Mount Calvary,WI,Wisconsin,FOND DU LAC,Mount Calvary
 Nashotah,WI,Wisconsin,WAUKESHA,Nashotah
@@ -36819,7 +36819,7 @@ Milwaukee,WI,Wisconsin,MILWAUKEE,St Francis
 Milwaukee,WI,Wisconsin,MILWAUKEE,Wauwatosa
 Milwaukee,WI,Wisconsin,MILWAUKEE,Brown Deer
 Milwaukee,WI,Wisconsin,MILWAUKEE,River Hills
-Milwaukee,WI,Wisconsin,MILWAUKEE,Glendale
+Glendale,WI,Wisconsin,MILWAUKEE,Glendale
 Milwaukee,WI,Wisconsin,MILWAUKEE,Wawatosa
 Milwaukee,WI,Wisconsin,MILWAUKEE,Shorewood
 Milwaukee,WI,Wisconsin,MILWAUKEE,Whitefish Bay
@@ -38107,7 +38107,7 @@ Saint Paul,MN,Minnesota,RAMSEY,Mounds View
 Saint Paul,MN,Minnesota,RAMSEY,New Brighton
 Saint Paul,MN,Minnesota,RAMSEY,Moundsview
 Saint Paul,MN,Minnesota,RAMSEY,Arden Hills
-Saint Paul,MN,Minnesota,RAMSEY,Roseville
+Roseville,MN,Minnesota,RAMSEY,Roseville
 Saint Paul,MN,Minnesota,WASHINGTON,Grant
 Saint Paul,MN,Minnesota,WASHINGTON,White Bear Lake
 Saint Paul,MN,Minnesota,WASHINGTON,Grant Township
@@ -44345,7 +44345,7 @@ Saint Louis,MO,Missouri,SAINT LOUIS,Bellerive
 Saint Louis,MO,Missouri,SAINT LOUIS,Pasadena Hills
 Saint Louis,MO,Missouri,SAINT LOUIS,Glendale
 Saint Louis,MO,Missouri,SAINT LOUIS,Warson Woods
-Saint Louis,MO,Missouri,SAINT LOUIS,Kirkwood
+Kirkwood,MO,Missouri,SAINT LOUIS,Kirkwood
 Saint Louis,MO,Missouri,SAINT LOUIS,Oakland
 Saint Louis,MO,Missouri,SAINT LOUIS,Wilbur Park
 Saint Louis,MO,Missouri,SAINT LOUIS,Affton
@@ -45680,7 +45680,7 @@ Boss,MO,Missouri,DENT,Boss
 Bourbon,MO,Missouri,CRAWFORD,Bourbon
 Brinktown,MO,Missouri,MARIES,Brinktown
 Bucyrus,MO,Missouri,TEXAS,Bucyrus
-Bucyrus,MO,Missouri,TEXAS,Bendavis
+Bucryus,MO,Missouri,TEXAS,Bendavis
 Bucyrus,MO,Missouri,TEXAS,Ellis Prairie
 Cherryville,MO,Missouri,CRAWFORD,Cherryville
 Cook Sta,MO,Missouri,CRAWFORD,Cook Sta
