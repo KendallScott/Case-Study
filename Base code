@@ -220,10 +220,58 @@ bb + scale_x_continuous(labels = scales::percent)
 ```
 
 ```{r}
-
 #Question 8
 #Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA).  You decide to use KNN classification to investigate this relationship.  Provide statistical evidence one way or the other. You can of course assume your audience is comfortable with percentages … KNN is very easy to understand conceptually.
+
+#add ipa, ale, other column
+ipa_ale <-
+  clean_beer_brewery %>% mutate(Ale_type = ifelse(
+    str_detect(clean_beer_brewery$Style, regex("ipa", ignore_case = TRUE)),
+    "IPA",
+    ifelse(str_detect(
+      clean_beer_brewery$Style, regex("ale", ignore_case = TRUE)
+    ), "Ale", "other")
+  ))
+#filter out "other" type of beers and drop levels
+ipa_ale <- ipa_ale %>% filter(Ale_type %in% c("IPA", "Ale")) %>% droplevels(ipa_ale$Ale_type)
+
+#for loops for KNN model and hypertuning k parameter
+nsplits <- 100
+nks <- 30
+
+df <- data.frame()
+set.seed(6)
+for (i in 1:nsplits) {
+  n <- nrow(ipa_ale)
+  nsamp <- sample(1:n,round(n*.7)) #for a 70-30 split
+  ipa_train <- ipa_ale[nsamp,]
+  ipa_test <- ipa_ale[-nsamp,]
+  
+  for (j in 1:nks) {
+    cm <- knn(scale(ipa_train[,7:8]),scale(ipa_test[,7:8]),cl=ipa_train$Ale_type,k=i) %>% confusionMatrix(as.factor(ipa_test$Ale_type),positive = "IPA")
+    cm_values <- data.frame("k"=j,"Accuracy"=cm$overall[1],"Sensitivity"=cm$byClass[1],"Specificity"=cm$byClass[2])
+    df <- rbind(df,cm_values)
+  }
+}
+
+#summarize the k results
+means <- df %>% group_by(k) %>% summarise(Accuracy=mean(Accuracy)*100,Sensitivity=mean(Sensitivity)*100,Specificity=mean(Specificity)*100)
+
+#plot accuracy, sensitivity and specificity
+means %>% ggplot(aes(x=k,y=Accuracy))+geom_line(color="#39568C")+theme_bw()+theme(
+  panel.grid = element_blank(),
+  panel.border = element_blank())
+means %>% ggplot(aes(x=k,y=Sensitivity))+geom_line(color="#39568C")+theme_bw()+theme(
+  panel.grid = element_blank(),
+  panel.border = element_blank())
+means %>% ggplot(aes(x=k,y=Specificity))+geom_line(color="#39568C")+theme_bw()+theme(
+  panel.grid = element_blank(),
+  panel.border = element_blank())
+
+#After hypertuning the k parameter, we can see that looking at the 14 closest beers in terms of ABV and IBU would help us make a prediction on whether it's a Indian Pale Ale or a nother type of Ale, with about 85% accuracy.
+#Moreover, this model is able to properly classify IPAs 85.98% of the time
 ```
+
 ```{r}
 #Question 9
 #Knock their socks off!  Find one other useful inference from the data that you feel Budweiser may be able to find value in.  You must convince them why it is important and back up your conviction with appropriate statistical evidence. 
