@@ -222,6 +222,7 @@ bb + scale_x_continuous(labels = scales::percent)
 ```{r}
 #Question 8
 library(caret)
+library(class)
 
 #Budweiser would also like to investigate the difference with respect to IBU and ABV between IPAs (India Pale Ales) and other types of Ale (any beer with “Ale” in its name other than IPA).  You decide to use KNN classification to investigate this relationship.  Provide statistical evidence one way or the other. You can of course assume your audience is comfortable with percentages … KNN is very easy to understand conceptually.
 
