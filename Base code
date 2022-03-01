@@ -54,6 +54,7 @@ library(kableExtra)
 cnty <- read.csv("cty-cnty.csv")
 colnames(cnty)[3] <- "region"
 #load population data 2021
+pop_est = read.csv(file.choose(),header = TRUE)
 pop_est <- read.csv("NST-EST2021-alldata.csv")
 pop_est <- pop_est %>% select(NAME,POPESTIMATE2021) %>% rename(region=NAME, "Pop2021"=POPESTIMATE2021) %>% mutate(region=tolower(region))
 pop_est <- pop_est[-c(1:5),]
@@ -96,7 +97,7 @@ us_states %>% left_join(brew_state,by=("region")) %>%
         axis.title = element_blank())+
   labs(fill="Brewery\nCount")+
   ggtitle("Breweries by State\nContinental US")
-  
+
 #county brewery count
 brew_county <- brewcomb %>% mutate(subregion=tolower(County)) %>% 
   group_by(subregion) %>% count(subregion)
@@ -137,6 +138,8 @@ bb + scale_y_continuous(labels = scales::percent)
 ```
 
 ```{r}
+install.packages("kableExtra")
+library(kableExtra)
 #5 which state has the maximum alcoholic (ABV) beer? which state has the most bitter (IBU) beer?
 maxABV <- beer_brewery %>% merge(cnty, by=c("City", "State")) %>% select(ABV, region) %>% 
   filter(!is.na(ABV)) %>% group_by(region) %>% summarise(Max_ABV=max(ABV)) %>% arrange(desc(Max_ABV))
@@ -300,14 +303,14 @@ twitter_token <- create_token(
   access_token = access_token,
   access_secret = access_secret,
   set_renv = TRUE)
-  
+
 budweiser_tweets <- search_tweets(q="budweiser",  n = 18000,
                                   include_rts = FALSE, lang = "en", 
                                   geocode = lookup_coords("usa")
-loc=budweiser_tweets %>% filter(is.na(location) == FALSE & location != "" & location != "USA" & location != "United States"& location != "Canada") 
-loc <- loc %>%
-  group_by(location) %>% count(location)
-loc %>% arrange(desc(n))
+                                  loc=budweiser_tweets %>% filter(is.na(location) == FALSE & location != "" & location != "USA" & location != "United States"& location != "Canada") 
+                                  loc <- loc %>%
+                                    group_by(location) %>% count(location)
+                                  loc %>% arrange(desc(n))
 )
 
 #recently popular tweets from budweiser
