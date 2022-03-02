@@ -281,6 +281,24 @@ means %>% ggplot(aes(x=k,y=Specificity))+geom_line(color="#39568C")+theme_bw()+t
 ```{r}
 #Question 9
 #Knock their socks off!  Find one other useful inference from the data that you feel Budweiser may be able to find value in.  You must convince them why it is important and back up your conviction with appropriate statistical evidence. 
+#join brew and cnty (bubble map data for brews)
+#library(tidyverse)
+#library(tigris)
+#data(fips_codes)
+
+us_counties <- map_data("county")
+cnty <- read.csv(file.choose(),header = TRUE)
+colnames(cnty)[3] <- "region"
+cnty<-cnty%>% select(City, State, region, County)
+cnty<- cnty %>% distinct(City, State, .keep_all = TRUE)
+us_counties<-us_counties %>% distinct(region, subregion, .keep_all = TRUE)
+  
+brewcomb_type <- merge(clean_beer_brewery, select(cnty, c("City", "State", "County","region")), by=c("City","State"))
+brewcomb_type <- brewcomb_type %>% mutate(subregion=tolower(County),region=tolower(region))
+#jumps from 1389 to 2184 on this join
+brewcomb_type <- merge(x=brewcomb_type,y=us_counties,by="subregion", "region")
+
+
 #looking at binge drinking prevalence by state vs. ABV by state
 cdc_beer_brewery = merge(x=clean_beer_brewery,y=CDC,by="State")
 cdc_beer_brewery%>% rename(CDC.BNG=Binge.drinking.prevalence)
