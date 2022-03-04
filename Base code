@@ -281,10 +281,10 @@ means %>% ggplot(aes(x=k,y=Specificity))+geom_line(color="#39568C")+theme_bw()+t
 ```{r}
 #Question 9
 #Knock their socks off!  Find one other useful inference from the data that you feel Budweiser may be able to find value in.  You must convince them why it is important and back up your conviction with appropriate statistical evidence. 
-#join brew and cnty (bubble map data for brews)
-#library(tidyverse)
-#library(tigris)
-#data(fips_codes)
+
+#join brew/beer and cnty (bubble map data for brews)
+library(tidyverse)
+library(tigris)
 
 us_counties <- map_data("county")
 cnty <- read.csv(file.choose(),header = TRUE)
@@ -295,8 +295,67 @@ us_counties<-us_counties %>% distinct(region, subregion, .keep_all = TRUE)
   
 brewcomb_type <- merge(clean_beer_brewery, select(cnty, c("City", "State", "County","region")), by=c("City","State"))
 brewcomb_type <- brewcomb_type %>% mutate(subregion=tolower(County),region=tolower(region))
-#jumps from 1389 to 2184 on this join
-brewcomb_type <- merge(x=brewcomb_type,y=us_counties,by="subregion", "region")
+
+#combining for lat long info
+brewcomb_type <- merge(brewcomb_type, select(us_counties, c("lat", "long", "region","subregion")), by=c("region","subregion"))
+
+#style text clean-up
+library(stringr)
+
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$Style,".*IPA.*", "_IPA")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,".*Ale.*", "_Ale")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,".*Stout.*", "_Stout")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,".*Lager.*", "_Lager")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,".*Pilsner.*", "_Pilsner")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,".*Bitter.*", "_Bitter")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,".*Porter.*", "_Porter")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,"^(?!_).*$", "Other")
+brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,"_", "")
+
+brewcomb_type$Origin<-str_replace(brewcomb_type$Style,".*American.*", "_American")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Belgian.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Belgian.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Bock.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Czech.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Doppelbock.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Euro.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*German.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Gose.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Grisette.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Hefeweizen.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Kölsch.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Maibock.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Märzen.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Munich.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Saison.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Vienna.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Witbier.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Altbier.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Baltic.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Berliner.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Keller.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Schwarzbier.*", "_Euro")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*English.*", "_UK")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Scottish.*", "_UK")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Irish.*", "_UK")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,".*Scotch.*", "_UK")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,"^(?!_).*$", "")
+brewcomb_type$Origin<-str_replace(brewcomb_type$Origin,"_", " ")
+
+#agg for buubble map
+brewcomb_type_agg <- brewcomb_type  %>% mutate(subregion=tolower(County)) %>% 
+  group_by(lat, long, SimpleStyle, Origin) %>% count(SimpleStyle)
+  
+ #bubble graph using map/style
+ #Style
+ggplot() + geom_path(data = usa, aes(x = long, y = lat, group = group)) + geom_point(data = brewcomb_type_agg, aes(x = long, y = lat, color=SimpleStyle, size=n)) + theme(legend.position="top")
+
+#origin
+ggplot() + geom_path(data = usa, aes(x = long, y = lat, group = group)) + geom_point(data = brewcomb_type_agg, aes(x = long, y = lat, color=Origin, size=n)) + theme(legend.position="top")
+
+
+#combining style  and origin clean up
+#brewcomb_type$SimpleStyle <- paste(brewcomb_type$Origin,brewcomb_type$SimpleStyle)
 
 
 #looking at binge drinking prevalence by state vs. ABV by state
