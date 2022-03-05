@@ -10,10 +10,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+#Data analysis on craft beers and breweries accross the United States.
+#Project is created with: R 4.1.2
+#Packages: caret, class, gganimate, ggrepel, ggthemes, gifski, kableExtra, maps, tidyverse, tigris, viridis
 
 ```{r}
 #Question 2 & 3
@@ -21,8 +20,8 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 #reading in the csvs
-brewery = read.csv("\\breweries.csv") #read breweries.csv
-beer = read.csv("\\beers.csv") #read beers.csv
+brewery = read.csv("Data Files/breweries.csv") #read breweries.csv
+beer = read.csv("Data Files/beers.csv") #read beers.csv
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
@@ -68,10 +67,10 @@ library(maps)
 library(ggthemes)
 library(kableExtra)
 #load counties table
-cnty <- read.csv("cty-cnty.csv")
+cnty <- read.csv("Data Files/cty-cnty.csv")
 colnames(cnty)[3] <- "region"
 #load population data 2021
-pop_est <- read.csv("NST-EST2021-alldata.csv")
+pop_est <- read.csv("Data Files/NST-EST2021-alldata.csv")
 pop_est <- pop_est %>% select(NAME,POPESTIMATE2021) %>% rename(region=NAME, "Pop2021"=POPESTIMATE2021) %>% mutate(region=tolower(region))
 pop_est <- pop_est[-c(1:5),]
 pop_est$region %>% str_replace("District of Columbia", "washington, d.c.")
