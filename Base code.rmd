@@ -14,14 +14,15 @@ knitr::opts_chunk$set(echo = TRUE)
 #Project is created with: R 4.1.2
 #Packages: caret, class, gganimate, ggrepel, ggthemes, gifski, kableExtra, maps, tidyverse, tigris, viridis
 
+
 ```{r}
 #Question 2 & 3
 library(dplyr)
 library(tidyr)
 library(tidyverse)
 #reading in the csvs
-brewery = read.csv("Data Files/breweries.csv") #read breweries.csv
-beer = read.csv("Data Files/beers.csv") #read beers.csv
+brewery = read.csv("./Data Files//breweries.csv") #read breweries.csv
+beer = read.csv("./Data Files/beers.csv") #read beers.csv
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
@@ -67,10 +68,10 @@ library(maps)
 library(ggthemes)
 library(kableExtra)
 #load counties table
-cnty <- read.csv("Data Files/cty-cnty.csv")
+cnty <- read.csv("./Data Files/cty-cnty.csv")
 colnames(cnty)[3] <- "region"
 #load population data 2021
-pop_est <- read.csv("Data Files/NST-EST2021-alldata.csv")
+pop_est <- read.csv("./Data Files/NST-EST2021-alldata.csv")
 pop_est <- pop_est %>% select(NAME,POPESTIMATE2021) %>% rename(region=NAME, "Pop2021"=POPESTIMATE2021) %>% mutate(region=tolower(region))
 pop_est <- pop_est[-c(1:5),]
 pop_est$region %>% str_replace("District of Columbia", "washington, d.c.")
@@ -304,9 +305,9 @@ means %>% ggplot(aes(x=k,y=Specificity))+geom_line(color="#39568C")+theme_bw()+t
 #join brew/beer and cnty (bubble map data for brews)
 library(tidyverse)
 library(tigris)
+library(viridis)
 
 us_counties <- map_data("county")
-colnames(cnty)[3] <- "region"
 cnty<-cnty%>% select(City, State, region, County)
 cnty<- cnty %>% distinct(City, State, .keep_all = TRUE)
 us_counties<-us_counties %>% distinct(region, subregion, .keep_all = TRUE)
@@ -410,8 +411,3 @@ ggplot() +
 
 
 ```
-
-
-
-
-
