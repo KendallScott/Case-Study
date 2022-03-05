@@ -337,12 +337,18 @@ usa <- map_data("state")
   scale_size(range = c(1, 10), name=" # of beers")+
   ggtitle("Number of Beers by Style")
  
-#boxplot by Style
+#boxplots by Style
 library(viridis)
 ggplot(brewcomb_type, aes(x = BeerStyle, y = IBU, fill = BeerStyle)) +
   geom_boxplot() +
   theme_classic()+
   scale_fill_viridis(option="magma", discrete=TRUE, name="Beer Style" )
+#boxplot by ABV/Style
+gg<-ggplot(brewcomb_type, aes(x = BeerStyle, y = ABV, fill = BeerStyle)) +
+  geom_boxplot() +
+  theme_classic()
+gg+coord_flip()+ scale_fill_viridis(option="magma", discrete=TRUE, name="Beer Style" )
+
 
 #looking at binge drinking prevalence by state vs. ABV by state
 cdc_beer_brewery = merge(x=clean_beer_brewery,y=CDC,by="State")
