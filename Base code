@@ -310,16 +310,17 @@ brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle,"^(?!_).*$", "")
 brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$Style,".*Ale.*", "_Ale")
 brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,"^(?!_).*$", "")
 brewcomb_type$BeerStyle <- paste(brewcomb_type$BeerStyle, brewcomb_type$SimpleStyle)
-brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle,".*_American_Ale _Ale.*", "_American Ale")
-brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle," _Ale", "_Ale")
+brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle,".*_American Ale _Ale.*", "_American Ale")
 brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle,"^(?!_).*$", "Other")
-brewcomb_type$BeerStyle <- str_replace_all(brewcomb_type$BeerStyle, c(.,".*_.*", " ",".*German.*Ale.*"="German Ale", ".*American.*IPA.*"="American IPA"))
+brewcomb_type$BeerStyle <- str_replace_all(brewcomb_type$BeerStyle, c(".*_"=" ", ".*German.*Ale.*"="German Ale", ".*American.*IPA.*"="American IPA"))
+brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("left"))#added to remove space before style
+brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("right"))#added to remove space after style
 
 #summary of beer styles
 bb<-brewcomb_type %>% group_by(BeerStyle) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), count = n()) 
 bb
 
-#agg for buubble map
+#agg for bubble map
 brewcomb_type_agg <- brewcomb_type  %>% mutate(subregion=tolower(County)) %>% 
   group_by(lat, long, SimpleStyle, Origin) %>% count(SimpleStyle)
   
