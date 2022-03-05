@@ -327,15 +327,23 @@ bb<-brewcomb_type %>% group_by(BeerStyle, lat, long) %>% summarize(meanabv = mea
 bb
 
 library(ggrepel)
+library(gganimate)
+library(gifski)
 usa <- map_data("state")
- #bubble graph using map and simplified beer styles
- ggplot() +
+#bubble graph using map and simplified beer styles
+p <- ggplot() +
   geom_polygon(data = usa, aes(x=long, y = lat, group = group),color = "white", fill="grey", alpha=0.3) +
   geom_point( data=bb, aes(x=long, y=lat, color=BeerStyle, size=beers,  alpha=0.5)) +
-  scale_color_viridis(option="viridis", discrete=TRUE, name="Beer Style" ) +
+  scale_color_viridis_d(option="viridis", name="Beer Style" ) +
   theme_void() +
-  scale_size(range = c(1, 10), name=" # of beers")+
-  ggtitle("Number of Beers by Style")
+  scale_size(range = c(2, 20), name=" # of beers")+
+  ggtitle("Number of Beers by Style\n {closest_state}")+
+  theme(text = element_text(size=20))+
+  transition_states(BeerStyle) +
+  enter_fade() + 
+  enter_grow() +
+  ease_aes('sine-in-out')
+animate(p, width = 900, height = 572, duration = 14)
  
 #boxplots by Style
 library(viridis)
