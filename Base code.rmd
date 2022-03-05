@@ -1,11 +1,28 @@
+---
+title: "Case Study"
+author: "Kendall"
+date: "3/5/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
 ```{r}
 #Question 2 & 3
 library(dplyr)
 library(tidyr)
 library(tidyverse)
 #reading in the csvs
-brewery = read.csv(file.choose(),header = TRUE)
-beer = read.csv(file.choose(),header = TRUE)
+brewery = read.csv("\\Beers.csv")
+beer = read.csv("\\Breweries.csv")
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
@@ -54,7 +71,6 @@ library(kableExtra)
 cnty <- read.csv("cty-cnty.csv")
 colnames(cnty)[3] <- "region"
 #load population data 2021
-pop_est = read.csv(file.choose(),header = TRUE)
 pop_est <- read.csv("NST-EST2021-alldata.csv")
 pop_est <- pop_est %>% select(NAME,POPESTIMATE2021) %>% rename(region=NAME, "Pop2021"=POPESTIMATE2021) %>% mutate(region=tolower(region))
 pop_est <- pop_est[-c(1:5),]
@@ -297,7 +313,6 @@ library(tidyverse)
 library(tigris)
 
 us_counties <- map_data("county")
-cnty <- read.csv(file.choose(),header = TRUE)
 colnames(cnty)[3] <- "region"
 cnty<-cnty%>% select(City, State, region, County)
 cnty<- cnty %>% distinct(City, State, .keep_all = TRUE)
@@ -328,6 +343,7 @@ brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("left"))#ad
 sum_brew<-brewcomb_type %>% group_by(BeerStyle) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) %>% arrange(desc(beers))
 sum_brew
 
+#summary table for powerpoint
 sum_brew %>% kable(col.names = c("BeerStyle","meanabv","meanIBU","beers")) %>% 
   kable_styling(latex_options = c("striped", "scale_down")) %>% 
   row_spec(row = 0, italic = T, background = "#21918c", color = "white") %>% 
@@ -337,11 +353,20 @@ sum_brew %>% kable(col.names = c("BeerStyle","meanabv","meanIBU","beers")) %>%
 bb<-brewcomb_type %>% group_by(BeerStyle, lat, long) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) %>% arrange(desc(beers))
 bb
 
+# Beer Style bubble map fixed
 library(ggrepel)
+usa <- map_data("state")
+ggplot() +
+  geom_polygon(data = usa, aes(x=long, y = lat, group = group),color = "white", fill="grey", alpha=0.3) +
+  geom_point( data=bb, aes(x=long, y=lat, color=BeerStyle, size=beers,  alpha=0.5)) +
+  scale_color_viridis(option="viridis", discrete=TRUE, name="Beer Style" ) +
+  theme_void() +
+  scale_size(range = c(1, 10), name=" # of beers")+
+  ggtitle("Number of Beers by Style")
+
+#animation of bubble graph using map and simplified beer styles
 library(gganimate)
 library(gifski)
-usa <- map_data("state")
-#bubble graph using map and simplified beer styles
 p <- ggplot() +
   geom_polygon(data = usa, aes(x=long, y = lat, group = group),color = "white", fill="grey", alpha=0.3) +
   geom_point( data=bb, aes(x=long, y=lat, color=BeerStyle, size=beers,  alpha=0.5)) +
@@ -356,30 +381,40 @@ p <- ggplot() +
   ease_aes('sine-in-out')
 animate(p, width = 900, height = 572, duration = 14)
  
-#boxplots by Style
-library(viridis)
-ggplot(brewcomb_type, aes(x = BeerStyle, y = IBU, fill = BeerStyle)) +
-  geom_boxplot() +
-  theme_classic()+
-  scale_fill_viridis(option="magma", discrete=TRUE, name="Beer Style" )
+#boxplots by Beer Style
 #boxplot by ABV/Style
 gg<-ggplot(brewcomb_type, aes(x = BeerStyle, y = ABV, fill = BeerStyle)) +
   geom_boxplot() +
   theme_classic()
 gg+coord_flip()+ scale_fill_viridis(option="magma", discrete=TRUE, name="Beer Style" )
 
+#boxplot by IBU/Style
+gg<-ggplot(brewcomb_type, aes(x = BeerStyle, y = IBU, fill = BeerStyle)) +
+  geom_boxplot() +
+  theme_classic()
+gg+coord_flip()+ scale_fill_viridis(option="magma", discrete=TRUE, name="Beer Style" )
 
-#looking at binge drinking prevalence by state vs. ABV by state
-cdc_beer_brewery = merge(x=clean_beer_brewery,y=CDC,by="State")
-cdc_beer_brewery%>% rename(CDC.BNG=Binge.drinking.prevalence)
+# knit together pngs into gif for powerpoint
+library(magick)
+list.files(path='//Users/macowner/Desktop/Data Science/gif//', pattern = '*.png', full.names = TRUE) %>% 
+  image_read() %>% # reads each path file
+  image_join() %>% # joins image
+  image_animate(fps=4) %>% # animates, can opt for number of loops
+  image_write("FileName.gif") # write to current dir
 
-bb<-cdc_beer_brewery %>% group_by(State) %>% summarize(medianABV = median(ABV), BingeDrink=round(median(Binge.drinking.prevalence),0), count = n()) 
+#ipa mapping
+ipa<-brewcomb_type%>% filter(BeerStyle=="American IPA") %>% group_by(BeerStyle, lat, long) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) %>% arrange(desc(beers))
+ipa
 
-bb.lm <- lm(medianABV~ BingeDrink, bb)
+ggplot() +
+  geom_polygon(data = usa, aes(x=long, y = lat, group = group),color = "white", fill="grey", alpha=0.3) +
+  geom_point( data=ipa, aes(x=long, y=lat, color=meanIBU, size=beers,  alpha=0.5)) +
+  scale_color_viridis(option="viridis",  name="IBU" ) +
+  theme_void() +
+  scale_size(range = c(1, 10), name=" # of beers")+
+  ggtitle("Number of American IPA Beers")
 
-bb = cdc_beer_brewery %>% ggplot(aes(x = ABV, y=Binge.drinking.prevalence, color = Binge.drinking.prevalence)) + geom_point(aes(fill=Binge.drinking.prevalence, color=IBU),pch=21,size=3,colour="black")+ ggtitle("ABV vs. Binge Drinking Prevalence")+ 
-  geom_smooth(method='lm', formula= y~x, color="black")
-bb + scale_x_continuous(labels = scales::percent)
+
 
 ```
 
