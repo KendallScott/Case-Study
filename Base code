@@ -347,15 +347,31 @@ brewcomb_type_agg <- brewcomb_type  %>% mutate(subregion=tolower(County)) %>%
   group_by(lat, long, SimpleStyle, Origin) %>% count(SimpleStyle)
   
  #bubble graph using map/style
- #Style
-ggplot() + geom_path(data = usa, aes(x = long, y = lat, group = group)) + geom_point(data = brewcomb_type_agg, aes(x = long, y = lat, color=SimpleStyle, size=n)) + theme(legend.position="top")
 
+#stylized bubble graph of simplified styles by location
+ggplot() +
+  geom_polygon(data = usa, aes(x=long, y = lat, group = group),color = "white", fill="grey", alpha=0.3) +
+  geom_point( data=brewcomb_type_agg, aes(x=long, y=lat, color=SimpleStyle, size=n,  alpha=0.5)) +
+scale_color_viridis(option="viridis", discrete=TRUE, name="Beer Style" ) +
+  theme_void() +
+  scale_size(range = c(1, 10), name=" # of beers")+
+  ggtitle("Number of Beers by Style")
+  
+#Style
+ggplot() + geom_path(data = usa, aes(x = long, y = lat, group = group)) + geom_point(data = brewcomb_type_agg, aes(x = long, y = lat, color=SimpleStyle, size=n)) + theme(legend.position="top")
 #origin
 ggplot() + geom_path(data = usa, aes(x = long, y = lat, group = group)) + geom_point(data = brewcomb_type_agg, aes(x = long, y = lat, color=Origin, size=n)) + theme(legend.position="top")
 
+#boxplot by Style
+ggplot(brewcomb_type, aes(x = SimpleStyle, y = ABV, fill = SimpleStyle)) +
+  geom_boxplot() +
+  #scale_fill_manual(values = c("#0099f8", "#e74c3c", "#2ecc71")) +
+  #stat_summary(fun.data = ABV, geom = "text", hjust = 0.5, vjust = 0.9) +
+  theme_classic()
 
 #combining style  and origin clean up
 #brewcomb_type$SimpleStyle <- paste(brewcomb_type$Origin,brewcomb_type$SimpleStyle)
+
 
 
 #looking at binge drinking prevalence by state vs. ABV by state
@@ -369,30 +385,6 @@ bb.lm <- lm(medianABV~ BingeDrink, bb)
 bb = cdc_beer_brewery %>% ggplot(aes(x = ABV, y=Binge.drinking.prevalence, color = Binge.drinking.prevalence)) + geom_point(aes(fill=Binge.drinking.prevalence, color=IBU),pch=21,size=3,colour="black")+ ggtitle("ABV vs. Binge Drinking Prevalence")+ 
   geom_smooth(method='lm', formula= y~x, color="black")
 bb + scale_x_continuous(labels = scales::percent)
-
-#pulling tweets by location that mention budweiser
-library(rtweet)
-
-twitter_token <- create_token(
-  app = appname,
-  consumer_key = key,
-  consumer_secret = secret,
-  access_token = access_token,
-  access_secret = access_secret,
-  set_renv = TRUE)
-
-budweiser_tweets <- search_tweets(q="budweiser",  n = 18000,
-                                  include_rts = FALSE, lang = "en", 
-                                  geocode = lookup_coords("usa")
-                                  loc=budweiser_tweets %>% filter(is.na(location) == FALSE & location != "" & location != "USA" & location != "United States"& location != "Canada") 
-                                  loc <- loc %>%
-                                    group_by(location) %>% count(location)
-                                  loc %>% arrange(desc(n))
-)
-
-#recently popular tweets from budweiser
-budweiserusa <- get_timeline("budweiserusa", n = 3200)
-top_retweets <- budweiserusa %>% select(text, retweet_count, favorite_count) %>% filter(is.na(retweet_count) == FALSE & retweet_count!="")  %>% arrange(desc(retweet_count)) %>% top_n(10)
 
 ```
 
