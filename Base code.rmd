@@ -21,8 +21,8 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 #reading in the csvs
-brewery = read.csv("\\Beers.csv") #read breweries.csv
-beer = read.csv("\\Breweries.csv") #read beers.csv
+brewery = read.csv("\\breweries.csv") #read breweries.csv
+beer = read.csv("\\beers.csv") #read beers.csv
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
