@@ -12,17 +12,13 @@ Project is created with:
 
 
 Packages:
-* dplyr
-* tidyr
 * tidyverse
-* ggplot2
 * maps
 * ggthemes
 * kableExtra
 * caret
 * class
 * tigris
-* stringr
 * ggrepel
 * gganimate
 * gifski
