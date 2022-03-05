@@ -138,7 +138,6 @@ bb + scale_y_continuous(labels = scales::percent)
 ```
 
 ```{r}
-install.packages("kableExtra")
 library(kableExtra)
 #5 which state has the maximum alcoholic (ABV) beer? which state has the most bitter (IBU) beer?
 maxABV <- beer_brewery %>% merge(cnty, by=c("City", "State")) %>% select(ABV, region) %>% 
