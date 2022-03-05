@@ -307,14 +307,20 @@ brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$Style,".*Ale.*", "_Ale")
 brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$SimpleStyle,"^(?!_).*$", "")
 brewcomb_type$BeerStyle <- paste(brewcomb_type$BeerStyle, brewcomb_type$SimpleStyle)
 brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle,".*_American Ale _Ale.*", "_American Ale")
+brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("left"))#added to remove space before style
 brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle,"^(?!_).*$", "Other")
 brewcomb_type$BeerStyle <- str_replace_all(brewcomb_type$BeerStyle, c(".*_"=" ", ".*German.*Ale.*"="German Ale", ".*American.*IPA.*"="American IPA"))
-brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("left"))#added to remove space before style
 brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("right"))#added to remove space after style
+brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("left"))#added to remove space before style
 
 #summary of beer styles
-sum_brew<-brewcomb_type %>% group_by(BeerStyle) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) 
+sum_brew<-brewcomb_type %>% group_by(BeerStyle) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) %>% arrange(desc(beers))
 sum_brew
+
+sum_brew %>% kable(col.names = c("BeerStyle","meanabv","meanIBU","beers")) %>% 
+  kable_styling(latex_options = c("striped", "scale_down")) %>% 
+  row_spec(row = 0, italic = T, background = "#21918c", color = "white") %>% 
+  column_spec(1:2, width = "0.5in")
 
 #summary table for bubble graph/map
 bb<-brewcomb_type %>% group_by(BeerStyle, lat, long) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) %>% arrange(desc(beers))
