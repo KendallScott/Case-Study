@@ -12,14 +12,14 @@ Project is created with:
 
 
 Packages:
-* tidyverse
-* maps
-* ggthemes
-* kableExtra
 * caret
 * class
-* tigris
-* ggrepel
 * gganimate
+* ggrepel
+* ggthemes
 * gifski
+* kableExtra
+* maps
+* tidyverse
+* tigris
 * viridis
