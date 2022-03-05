@@ -9,3 +9,19 @@ Data analysis on craft beers and breweries accross the United States.
 ## Technologies
 Project is created with:
 * R 4.1.2
+Packages:
+* dplyr
+* tidyr
+* tidyverse
+* ggplot2
+* maps
+* ggthemes
+* kableExtra
+* caret
+* class
+* tigris
+* stringr
+* ggrepel
+* gganimate
+* gifski
+* viridis
