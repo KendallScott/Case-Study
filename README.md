@@ -2,4 +2,4 @@
 Data analysis on craft beers and breweries accross the United States.
 
 ## Contents
-* [Data Files] (#https://github.com/KendallScott/Case-Study/tree/main/Data%20Files)
+* [Data Files](https://github.com/KendallScott/Case-Study/tree/main/Data%20Files)
