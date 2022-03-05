@@ -21,8 +21,8 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 #reading in the csvs
-brewery = read.csv("\\Beers.csv")
-beer = read.csv("\\Breweries.csv")
+brewery = read.csv("\\Beers.csv") #read breweries.csv
+beer = read.csv("\\Breweries.csv") #read beers.csv
 
 #renaming columns for the join to the beer dataset
 brewery=rename(brewery, Brewery_id=Brew_ID, Brewery=Name)
@@ -207,12 +207,6 @@ us_states %>% mutate(region=str_to_title(region)) %>% left_join(maxIBU,by="regio
 #Question 6
 #6 comment on the summary statistics and distribution of the ABV variable
 
-#ABV distribution by bottle ounces
-beer_brewery %>% ggplot(aes(x=Beer_ID,y=ABV, color=as.factor(Ounces)))+geom_point()+scale_color_viridis_d()+theme_bw()+labs(color="Ounces")+
-  theme(panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        panel.border = element_blank())
 #Density Curve for ABV
 beer_brewery %>% ggplot(aes(x=ABV))+geom_density(color="#39568C")+theme_bw()+theme(
   panel.grid = element_blank(),
