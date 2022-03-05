@@ -326,6 +326,8 @@ sum_brew %>% kable(col.names = c("BeerStyle","meanabv","meanIBU","beers")) %>%
 bb<-brewcomb_type %>% group_by(BeerStyle, lat, long) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) %>% arrange(desc(beers))
 bb
 
+library(ggrepel)
+usa <- map_data("state")
  #bubble graph using map and simplified beer styles
  ggplot() +
   geom_polygon(data = usa, aes(x=long, y = lat, group = group),color = "white", fill="grey", alpha=0.3) +
