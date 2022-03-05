@@ -302,9 +302,6 @@ brewcomb_type <- merge(brewcomb_type, select(us_counties, c("lat", "long", "regi
 #style text clean-up
 library(stringr)
 
-library(stringr)
-library(tidyverse)
-
 brewcomb_type$BeerStyle <- str_replace_all(brewcomb_type$Style, c(".*American.*IPA.*"="_American IPA",  ".*American.*Ale.*"= "_American Ale", ".*Stout.*"="_Stout",  ".*Lager.*"="_Lager",  ".*Pilsner.*"= "_Pilsner", ".*Bitter.*"= "_Bitter", ".*Porter.*"= "_Porter", ".*Belgian.*"= "_German",  ".*Bock.*"= "_German",   ".*Czech.*"= "_German", ".*Doppelbock.*"= "_German",  ".*German.*"= "_German",  ".*Gose.*"= "_German",  ".*Grisette.*"= "_German",  ".*Hefeweizen.*"= "_German",  ".*Kölsch.*"= "_German",  ".*Maibock.*"= "_German",  ".*Märzen.*"= "_German",  ".*Munich.*"= "_German",  ".*Saison.*"= "_German",  ".*Vienna.*"= "_German",  ".*Witbier.*"= "_German",  ".*Altbier.*"= "_German", ".*Baltic.*"= "_German",  ".*Berliner.*"= "_German",  ".*Keller.*"= "_German", ".*Schwarzbier.*"= "_German"))
 brewcomb_type$BeerStyle<-str_replace(brewcomb_type$BeerStyle,"^(?!_).*$", "")
 brewcomb_type$SimpleStyle<-str_replace(brewcomb_type$Style,".*Ale.*", "_Ale")
@@ -317,20 +314,18 @@ brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("left"))#ad
 brewcomb_type$BeerStyle <- trimws(brewcomb_type$BeerStyle, which = c("right"))#added to remove space after style
 
 #summary of beer styles
-bb<-brewcomb_type %>% group_by(BeerStyle) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), count = n()) 
+sum_brew<-brewcomb_type %>% group_by(BeerStyle) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) 
+sum_brew
+
+#summary table for bubble graph/map
+bb<-brewcomb_type %>% group_by(BeerStyle, lat, long) %>% summarize(meanabv = mean(ABV), meanIBU = mean(IBU), beers = n()) %>% arrange(desc(beers))
 bb
 
-#agg for bubble map
-brewcomb_type_agg <- brewcomb_type  %>% mutate(subregion=tolower(County)) %>% 
-  group_by(lat, long, SimpleStyle, Origin) %>% count(SimpleStyle)
-  
- #bubble graph using map/style
-
-#stylized bubble graph of simplified styles by location
-ggplot() +
+ #bubble graph using map and simplified beer styles
+ ggplot() +
   geom_polygon(data = usa, aes(x=long, y = lat, group = group),color = "white", fill="grey", alpha=0.3) +
-  geom_point( data=brewcomb_type_agg, aes(x=long, y=lat, color=SimpleStyle, size=n,  alpha=0.5)) +
-scale_color_viridis(option="viridis", discrete=TRUE, name="Beer Style" ) +
+  geom_point( data=bb, aes(x=long, y=lat, color=BeerStyle, size=beers,  alpha=0.5)) +
+  scale_color_viridis(option="viridis", discrete=TRUE, name="Beer Style" ) +
   theme_void() +
   scale_size(range = c(1, 10), name=" # of beers")+
   ggtitle("Number of Beers by Style")
@@ -349,8 +344,6 @@ ggplot(brewcomb_type, aes(x = SimpleStyle, y = ABV, fill = SimpleStyle)) +
 
 #combining style  and origin clean up
 #brewcomb_type$SimpleStyle <- paste(brewcomb_type$Origin,brewcomb_type$SimpleStyle)
-
-
 
 #looking at binge drinking prevalence by state vs. ABV by state
 cdc_beer_brewery = merge(x=clean_beer_brewery,y=CDC,by="State")
