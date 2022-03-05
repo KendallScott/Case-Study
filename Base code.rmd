@@ -1,6 +1,6 @@
 ---
 title: "Case Study"
-author: "Kendall"
+author: "Miguel Bonilla and Kendall Scott"
 date: "3/5/2022"
 output: html_document
 ---
