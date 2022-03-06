@@ -132,6 +132,7 @@ us_counties %>% left_join(brew_county,by="subregion") %>%
   ggtitle("Breweries by County\nContinental US")+
   geom_polygon(data = us_states,aes(x=long,y=lat,group=group), color = "white",size=.15,fill="transparent")
 ```
+#The table above shows the breweries present in each state, the top 5 states are Colorado (47), California (39), Michigan (33), Oregion (29), and Texas (28).
 
 ```{r}
 #Question 4
@@ -154,9 +155,9 @@ bb + scale_y_continuous(labels = scales::percent)
 ```
 
 ```{r}
-library(kableExtra)
 #5 which state has the maximum alcoholic (ABV) beer? which state has the most bitter (IBU) beer?
 
+library(kableExtra)
 #maximum ABV by state
 maxABV <- beer_brewery %>% merge(cnty, by=c("City", "State")) %>% select(ABV, region) %>% 
   filter(!is.na(ABV)) %>% group_by(region) %>% summarise(Max_ABV=max(ABV)) %>% arrange(desc(Max_ABV))
@@ -202,6 +203,7 @@ us_states %>% mutate(region=str_to_title(region)) %>% left_join(maxIBU,by="regio
   ggtitle("Maximum IBU by State\nContinental US")
 
 ```
+#Colorado is the state with the beer with the maximum alcohol by volume (ABV) with .128. Oregon is the state with the beer with the maximum International Bitterness Units (IBU) with .138.
 
 ```{r}
 #Question 6
@@ -231,6 +233,8 @@ ABVsum %>% kable(col.names = c("Min", "25%", "Med", "75%", "Max", "Mean")) %>%
 #given that there are several beers that are exactly at the line with fewer slightly below and almost none 
 #slightly above the number. There also seems to be some degree of rounding at .5, but this is less pronounced
 ```
+#right skewed distribution centered at .057, there seems to be some degree of rounding occuring at around .1, given that there are several beers that are exactly at the line with fewer slightly below and almost none slightly above the number. There also seems to be some degree of rounding at .5, but this is less pronounced
+
 ```{r}
 #Question 7
 #7.Is there an apparent relationship between the bitterness of the beer and its alcoholic content? Draw a scatter plot. Make your best judgment of a relationship and EXPLAIN your answer.
@@ -294,9 +298,9 @@ means %>% ggplot(aes(x=k,y=Specificity))+geom_line(color="#39568C")+theme_bw()+t
   panel.grid = element_blank(),
   panel.border = element_blank())
 
-#After hypertuning the k parameter, we can see that looking at the 14 closest beers in terms of ABV and IBU would help us make a prediction on whether it's a Indian Pale Ale or a nother type of Ale, with about 85% accuracy.
-#Moreover, this model is able to properly classify IPAs 85.98% of the time
 ```
+#After hypertuning the k parameter, we can see that looking at the 14 closest beers in terms of ABV and IBU would help us make a prediction on whether it's a Indian Pale Ale or another type of Ale, with about 85% accuracy.
+#moreover this model is able to properly classify other ales as Ale (Specificity) with almost 86% accuracy, and classify IPA as IPA (sensitivity) with 83.64% accuracy.
 
 ```{r}
 #Question 9
